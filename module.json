@@ -1,14 +1,20 @@
 {   
-   "name": "elevenlabs-for-foundry",   
+   "id": "elevenlabs-for-foundry",   
    "title": "Elevenlabs for Foundry",   
    "description": "Elevenlabs Integration for FoundryVTT. Now you can bring your characters to actually speak in your games!\n Simpy use the /play command in the chat.\n Elevenlabs subscription is required for the API Key.",   
    "author": "Vex",
+   "authors": [{
+     "name": "Vex"
+		}]
    "version": "1.0.0",
-   "minimumCoreVersion": "9",
-   "compatibleCoreVersion":"9",
+   "compatibility": {
+    "minimum": 10,
+    "verified": "10.291",
+    "maximum": 11
+  }
    "url": "https://github.com/Vexthecollector/elevenlabs-for-foundry",
    "manifest": "https://raw.githubusercontent.com/Vexthecollector/elevenlabs-for-foundry/main/module.json",
-   "download": "https://github.com/Vexthecollector/elevenlabs-for-foundry/archive/refs/tags/1.0.0.zip",
+   "download": "https://github.com/Vexthecollector/elevenlabs-for-foundry/archive/refs/tags/1.0.0.v11.zip",
    "socket": true,
    "esmodules": [
 		"./main.js"
