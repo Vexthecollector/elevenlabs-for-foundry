@@ -19,7 +19,7 @@ Hooks.once('init', () => {
 Hooks.once('setup', () => { })
 Hooks.on('chatMessage', (log, message) => { try { Play_Sound(message) } catch { }; return false })
 Hooks.on("ready", () => {
-    socket.on('module.elevenlabs-for-foundry', ({ testarg, container }) => {
+    game.socket.on('module.elevenlabs-for-foundry', ({ testarg, container }) => {
         runPlaySound(container)
 
     })
@@ -107,7 +107,7 @@ async function Text_To_Speech(voiceID,text) {
         if (done) break
         chunks.push(value)
     }
-    socket.emit('module.elevenlabs-for-foundry', { testarg: "Hello World", container: chunks })
+    game.socket.emit('module.elevenlabs-for-foundry', { testarg: "Hello World", container: chunks })
     let blob = new Blob(chunks, { type: 'audio/mpeg' })
     let url = window.URL.createObjectURL(blob)
     AudioHelper.play({ src: url, volume: 1.0, loop: false }, false)
