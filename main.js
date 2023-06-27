@@ -1,4 +1,4 @@
-var api_key = "5ee99b2a1e7df231d26cb095e88997c7"
+var api_key = ""
 var unfiltered_all_Voices;
 var all_Voices = [];
 var string_To_Splice
