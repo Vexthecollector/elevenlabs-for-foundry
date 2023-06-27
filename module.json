@@ -1,0 +1,16 @@
+{   
+   "name": "elevenlabs-for-foundry",   
+   "title": "Elevenlabs for Foundry",   
+   "description": "Elevenlabs Integration for FoundryVTT. Now you can bring your characters to actually speak in your games!\n Simpy use the /play command in the chat.\n Elevenlabs subscription is required for the API Key.",   
+   "author": "Vex",
+   "version": "1.0.0",
+   "minimumCoreVersion": "9",
+   "compatibleCoreVersion":"11",
+   "url": "",
+   "manifest": "",
+   "download": "",
+   "socket": true,
+   "esmodules": [
+		"./main.js"
+	]
+ }
