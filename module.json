@@ -6,9 +6,9 @@
    "version": "1.0.0",
    "minimumCoreVersion": "9",
    "compatibleCoreVersion":"11",
-   "url": "",
-   "manifest": "",
-   "download": "",
+   "url": "https://github.com/Vexthecollector/elevenlabs-for-foundry",
+   "manifest": "https://raw.githubusercontent.com/Vexthecollector/elevenlabs-for-foundry/main/module.json",
+   "download": "https://github.com/Vexthecollector/elevenlabs-for-foundry/archive/refs/tags/1.0.0.zip",
    "socket": true,
    "esmodules": [
 		"./main.js"
