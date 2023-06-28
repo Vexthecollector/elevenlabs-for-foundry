@@ -17,7 +17,7 @@ Hooks.once('init', () => {
     Initialize_Main(); })
 
 Hooks.once('setup', () => { })
-Hooks.on('chatMessage', (log, message) => { try { Play_Sound(message) } catch { }; return false })
+Hooks.on('chatMessage', (log, message) => { try { return Play_Sound(message) } catch { }; return false })
 Hooks.on("ready", () => {
     game.socket.on('module.elevenlabs-for-foundry', ({ testarg, container }) => {
         runPlaySound(container)
@@ -33,6 +33,7 @@ async function Initialize_Main(){
 }
 
 function Play_Sound(message) {
+    console.log(message)
     if(message.startsWith("/playsound")){
         if(api_key){
 
@@ -47,8 +48,9 @@ function Play_Sound(message) {
         else {
             Set_Key_Window()
         }
-
+        return false;
     }
+    
     else if (message.startsWith("/play")) {
         if(api_key){
             Create_Window()
@@ -56,6 +58,7 @@ function Play_Sound(message) {
         else {
             Set_Key_Window()
         }
+        return false;
     }
 }
 
