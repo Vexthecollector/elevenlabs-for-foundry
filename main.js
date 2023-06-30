@@ -5,6 +5,7 @@ var isKeyOwner = false;
 var allowKeySharing = false;
 var voiceID;
 var voiceText;
+var subscriptionInfo;
 
 Hooks.once('init', () => {
     game.settings.register("elevenlabs-for-foundry", "xi-api-key", {
@@ -39,7 +40,17 @@ async function Initialize_Main() {
     api_key = game.settings.get("elevenlabs-for-foundry", "xi-api-key")
     if (api_key) {
         Get_Voices()
+        Get_Userdata()
     }
+}
+
+async function Get_Userdata(){
+    subscriptionInfo = await fetch('https://api.elevenlabs.io/v1/user/subscription', {
+        headers: {
+            'accept': 'application/json',
+            'xi-api-key': api_key
+        }
+    }).then(response => response.text()).then(text=>JSON.parse(text))
 }
 
 function Play_Sound(message) {
@@ -132,11 +143,9 @@ async function Voice_Field() {
             new Dialog({
                 title: `Send Audio`,
                 content: `<table style="width:100%"><tr><th style="width:50%">${allVoices_Voice_Field}</th><td style="width:50%"><input type="text" id="Voice_Field_Input" name="input"/></td></tr></table>`
+                +`<td>${subscriptionInfo.character_count}/${subscriptionInfo.character_limit}</td>`
                 +`<button onclick="getParams()">Send</button>`,
                 buttons: {
-                    Ok: {
-                        label: `Exit`, callback: (html) => {}
-                    },
                 },
             }).render(true);
         });
@@ -146,6 +155,7 @@ async function Voice_Field() {
 
 function getParams(){
     voiceText=document.getElementById("Voice_Field_Input").value
+    document.getElementById("Voice_Field_Input").value=""
     let select = document.getElementById("allVoices_Voice_Field");
     voiceID = select.options[select.selectedIndex].value;
 }
