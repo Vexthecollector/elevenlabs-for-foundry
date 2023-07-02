@@ -6,6 +6,8 @@ var allowKeySharing = false;
 var voiceID;
 var voiceText;
 var subscriptionInfo;
+var button;
+
 
 Hooks.once('init', () => {
     game.settings.register("elevenlabs-for-foundry", "xi-api-key", {
@@ -19,13 +21,6 @@ Hooks.once('init', () => {
 
     Initialize_Main();
 })
-
-class IgnoreError extends Error {
-    constructor(message) {
-        super(message);
-        this.name="IgnoreError"
-    }
-}
 
 Hooks.once('setup', () => { })
 Hooks.on('chatMessage', (log, message) => { try { return Play_Sound(message) } catch { }; })
@@ -44,13 +39,13 @@ async function Initialize_Main() {
     }
 }
 
-async function Get_Userdata(){
+async function Get_Userdata() {
     subscriptionInfo = await fetch('https://api.elevenlabs.io/v1/user/subscription', {
         headers: {
             'accept': 'application/json',
             'xi-api-key': api_key
         }
-    }).then(response => response.text()).then(text=>JSON.parse(text))
+    }).then(response => response.text()).then(text => JSON.parse(text))
 }
 
 function Play_Sound(message) {
@@ -73,7 +68,7 @@ function Play_Sound(message) {
 
     else if (message.startsWith("/play")) {
         if (api_key) {
-            Create_Window()
+            doStuff()
         }
         else {
             Set_Key_Window()
@@ -140,24 +135,41 @@ async function Voice_Field() {
     allVoices_Voice_Field += "</select>"
 
     let value = await new Promise((resolve) => {
-            new Dialog({
-                title: `Send Audio`,
-                content: `<table style="width:100%"><tr><th style="width:50%">${allVoices_Voice_Field}</th><td style="width:50%"><input type="text" id="Voice_Field_Input" name="input"/></td></tr></table>`
-                +`<td>${subscriptionInfo.character_count}/${subscriptionInfo.character_limit}</td>`
-                +`<button onclick="getParams()">Send</button>`,
-                buttons: {
-                },
-            }).render(true);
-        });
+        new Dialog({
+            title: `Send Audio`,
+            content: `<table style="width:100%"><tr><th style="width:50%">${allVoices_Voice_Field}</th><td style="width:50%"><input type="text" id="Voice_Field_Input" name="input"/></td></tr></table>`
+                + `<td>${subscriptionInfo.character_count}/${subscriptionInfo.character_limit}</td>`
+                + `<button id="Voice_Field_Get_Params">Send</button>`,
+            buttons: {
 
+            }
+        }).render(true);
+
+    });
     return [voiceID, voiceText];
 }
 
-function getParams(){
-    voiceText=document.getElementById("Voice_Field_Input").value
-    document.getElementById("Voice_Field_Input").value=""
+
+
+function Send_Text_To_Speech() {
+    voiceText = document.getElementById("Voice_Field_Input").value
+    document.getElementById("Voice_Field_Input").value = ""
     let select = document.getElementById("allVoices_Voice_Field");
     voiceID = select.options[select.selectedIndex].value;
+    Text_To_Speech(voiceID, voiceText)
+}
+
+async function doStuff() {
+    Create_Window()
+    await sleep(20)
+    button = document.getElementById("Voice_Field_Get_Params");
+    button.addEventListener("click", () => { Send_Text_To_Speech() })
+}
+
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function Create_Window() {
