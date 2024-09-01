@@ -15,7 +15,7 @@
   },
    "url": "https://github.com/Vexthecollector/elevenlabs-for-foundry",
    "manifest": "https://raw.githubusercontent.com/Vexthecollector/elevenlabs-for-foundry/main/module.json",
-   "download": "https://github.com/Vexthecollector/elevenlabs-for-foundry/archive/refs/tags/1.2.1.zip",
+   "download": "https://github.com/Vexthecollector/elevenlabs-for-foundry/archive/refs/tags/1.2.2.zip",
    "socket": true,
    "esmodules": [
 		"./main.js"
